@@ -1,9 +1,11 @@
 import React from "react";
 import Layout from "../components/Layout";
 import { Row, Col } from "react-bootstrap";
+
 import TermsList from "../components/TermsList";
 
 const Thesaurus = () => {
+
   return (
     <Layout
       title={"Library thesaurus"}

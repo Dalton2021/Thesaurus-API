@@ -7,22 +7,31 @@
   text-decoration: none;
 }
 
-.page-item .page-link {
+.termsList .page-item .page-link {
   background-color: #616e7c;
   color: #fff;
 }
 
-.page-item .page-link:hover {
+.termsList .page-item .page-link:hover {
   background-color: #515964;
   color: #fff;
 }
 
-.page-item.active span {
+.termsList .page-item.active span {
   background-color: #d44243;
   border-color: #d44243;
 }
 
-.page-item.active span:hover {
+.termsList .page-item.active span:hover {
   background-color: #b63838;
   border-color: #d44243;
+}
+
+.textLink {
+  color: "#0E7DB4";
+}
+
+.textLink:hover {
+  color: rgb(50, 82, 138) !important;
+  text-decoration: underline !important;
 }

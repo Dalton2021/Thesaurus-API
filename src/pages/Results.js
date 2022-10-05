@@ -1,35 +1,56 @@
-import React, { useContext } from "react";
+import React, { useContext, useState, useEffect } from "react";
 import Layout from "../components/Layout";
-import { useParams } from "react-router-dom";
+import { useParams, useLocation } from "react-router-dom";
 import { Col, Row } from "react-bootstrap";
 import TermsList from "../components/TermsList";
-import TermContext from "../TermContext";
+import TermContext, { filterTerm, sortItemsAlph } from "../TermContext";
+import PaginateResults from "../components/PaginateResults";
 
 const Results = () => {
   const { id } = useParams();
   const { list } = useContext(TermContext);
-  let { terms } = useContext(TermContext);
+  let { terms, np } = useContext(TermContext);
 
-  //Logic to filter array of terms by letter. Also makes sure each word is capped
-  terms =
-    id === "123"
-      ? terms.filter((term) => term.match(new RegExp(/^\d+/g)) !== null)
-      : terms
-          .map((term) =>
-            term
-              .split(" ")
-              .map((word) => word.charAt(0).toUpperCase() + word.slice(1))
-              .join(" ")
-          )
-          .filter((letter) => letter.startsWith(id));
+  const location = useLocation();
+
+  //Logic to filter array of terms by letter.
+  terms = filterTerm(terms, id);
+  np = filterTerm(np, id);
+
+  //Combines the two arrays which display terms
+  let currentTerms = terms.concat(np);
+
+  //Sorts all of the terms alphabetically
+  currentTerms = sortItemsAlph(currentTerms);
+
+  console.log(currentTerms);
+
+  // Get page count
+  const [currentPage, setCurrentPage] = useState(1);
+  const [termsPerPage] = useState(100);
+  const indexOfLastTerm = currentPage * termsPerPage;
+  const indexOfFirstTerm = indexOfLastTerm - termsPerPage;
+  const currentPaginateTerms = currentTerms.slice(
+    indexOfFirstTerm,
+    indexOfLastTerm
+  );
+
+  // Change page number
+  const paginate = (pageNumber) => setCurrentPage(pageNumber);
+
+  //Resets changed page number on reselect of letter
+  useEffect(() => {
+    paginate(1);
+  }, [location]);
 
   return (
     <Layout title={id} activeNav={id}>
       <Row>
         <Col>
           <p>
-            Each term generally includes links to Broader Terms, Narrower Terms and/or Related Terms. Other
-            links may include Scope Notes, Used For and Use.
+            Each term generally includes links to Broader Terms, Narrower Terms
+            and/or Related Terms. Other links may include Scope Notes, Used For
+            and Use.
           </p>
         </Col>
       </Row>
@@ -39,19 +60,16 @@ const Results = () => {
         </Col>
       </Row>
       <Row className="justify-content-center pt-5">
-        <Col xs={12} md={9} lg={7}>
+        <Col xs={12} md={10} lg={9}>
           {terms ? (
-            <ul className="list-inline">
-              {terms.map((term, index) => {
-                return (
-                  <li className="list-inline-item m-2" key={index}>
-                    <a className="text-decoration-none" href="#">
-                      <strong>{term}</strong>
-                    </a>
-                  </li>
-                );
-              })}
-            </ul>
+            <PaginateResults
+              allTerms={currentTerms}
+              terms={currentPaginateTerms}
+              termsPerPage={termsPerPage}
+              currentPage={currentPage}
+              paginate={paginate}
+              pageID={id}
+            />
           ) : null}
         </Col>
       </Row>

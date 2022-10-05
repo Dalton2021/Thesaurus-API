@@ -1,6 +1,5 @@
 import React from "react";
 import { Breadcrumb } from "react-bootstrap";
-import { useNavigate } from "react-router-dom";
 
 const Nav = ({ active }) => {
 
@@ -10,7 +9,6 @@ const Nav = ({ active }) => {
         <Breadcrumb.Item href="https://www.usfa.fema.gov/index.html">
           <div className="text-reset">Home</div>
         </Breadcrumb.Item>
-        <Breadcrumb.Item href="https://www.usfa.fema.gov/data/">Data, Publications & Library</Breadcrumb.Item>
         <Breadcrumb.Item href="https://www.usfa.fema.gov/data/library/">Library</Breadcrumb.Item>
         {!active ? (
           <Breadcrumb.Item active>Thesaurus</Breadcrumb.Item>

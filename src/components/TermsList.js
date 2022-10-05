@@ -1,5 +1,5 @@
-import React, { useEffect, useState, useContext } from "react";
-import { useNavigate, useParams } from "react-router-dom";
+import React, { useContext } from "react";
+import { useNavigate } from "react-router-dom";
 import { Pagination } from "react-bootstrap";
 import TermContext from "../TermContext";
 
@@ -12,7 +12,7 @@ const TermsList = ({ activePage }) => {
   };
 
   return (
-    <Pagination className="d-flex justify-content-center list-unstyled flex-wrap mb-0">
+    <Pagination className="d-flex justify-content-center list-unstyled flex-wrap mb-0 termsList">
       {list.map((page, index) => {
         return (
           <Pagination.Item
