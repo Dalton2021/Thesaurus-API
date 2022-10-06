@@ -23,7 +23,6 @@ const Results = () => {
   //Sorts all of the terms alphabetically
   currentTerms = sortItemsAlph(currentTerms);
 
-  console.log(currentTerms);
 
   // Get page count
   const [currentPage, setCurrentPage] = useState(1);

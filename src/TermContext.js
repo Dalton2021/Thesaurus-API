@@ -96,7 +96,8 @@ export const sortItemsAlph = (item) => {
 
 export const indexLocation = (item, termID) => {
   return item.findIndex((i) =>
-    termID.includes("np") ? i.id === termID : i.id === Number(termID)
+    // termID.includes("np") ? i.id === termID : i.id === Number(termID)
+    typeof termID === "string" ? i.id === termID : i.id === Number(termID)
   );
 };
 
@@ -112,10 +113,8 @@ export const getPageID = (term) => {
       ? term.preferred.substring(0, 1).toUpperCase()
       : term.nonPreferred.substring(0, 1).toUpperCase();
   }
+};
 
-  // let letterTest = term.preferred
-  //   ? term.preferred.match(new RegExp(/^[a-zA-Z]+$/)) !== null
-  //   : term.nonPreferred.match(new RegExp(/^[a-zA-Z]+$/)) !== null;
-
-  // return NumberTest ? "Number" : "Letter";
+export const getMatch = (itemList, itemID) => {
+  return itemList.filter((term) => term.termId === Number(itemID));
 };

@@ -1,5 +1,5 @@
 import React from "react";
-import { Container, Row, Col, Button } from "react-bootstrap";
+import { Container, Row, Col } from "react-bootstrap";
 import { Link } from "react-router-dom";
 import Nav from "./Nav";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
@@ -19,6 +19,7 @@ const Layout = ({
   navBtnRightText,
   navBtnLeftURL,
   navBtnRightURL,
+  titleItalic,
 }) => {
   return (
     <Container>
@@ -28,24 +29,32 @@ const Layout = ({
         </Col>
       </Row>
       <Row className="py-4 justify-content-center">
-        <Col lg={8}>
+        <Col lg={10}>
           {navButtons ? (
             <Row className="justify-content-center">
-              <Col>
+              <Col lg={4}>
                 <div className="d-flex justify-content-center flex-column h-100">
                   <Link
                     to={navBtnLeftURL}
                     className="text-black text-decoration-none btn btn-light btn-lg"
                   >
-                    <FontAwesomeIcon className="me-1" icon={faCircleArrowLeft} size="sm" />
+                    <FontAwesomeIcon
+                      className="me-1"
+                      icon={faCircleArrowLeft}
+                      size="sm"
+                    />
                     {navBtnLeftText}
                   </Link>
                 </div>
               </Col>
-              <Col>
-                <h1 className="fw-bolder display-5">{title}</h1>
+              <Col lg={4}>
+                {titleItalic ? (
+                  <h1 className="fw-bolder display-5 fst-italic">{title}</h1>
+                ) : (
+                  <h1 className="fw-bolder display-5">{title}</h1>
+                )}
               </Col>
-              <Col>
+              <Col lg={4}>
                 <div className="d-flex justify-content-center flex-column h-100">
                   <Link
                     to={navBtnRightURL}
